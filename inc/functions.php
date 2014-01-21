@@ -2,9 +2,10 @@
 function ownformatdate($date){
 	$months=array('janvier','février','mars','avril','mai',
 		'juin','juillet','août','septembre','novembre','décembre');
-	$a=substr($date,0,2);
-	$b=substr($date,2,2);
-	$c=substr($date,4,2);
+	if(strlen($date)==8){$decdate=2;}
+	$a=substr($date,0+$decdate,2);
+	$b=substr($date,2+$decdate,2);
+	$c=(int)substr($date,4+$decdate,2);
 	return $c.' '.($months[(int)$b-1]).' 20'.$a;
 }
 
