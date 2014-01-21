@@ -236,6 +236,8 @@ function showXP($id, $display) {
             // view link
             echo "<a href='experiments.php?mode=view&id=".$final_query['id']."'>
                 <img class='align_right' src='img/view_compact.png' alt='view' title='view experiment' /></a>";
+            echo "<a href='experiments.php?mode=edit&id=".$final_query['id']."'>
+                <img class='align_right' src='img/edit.png' alt='edit' title='edit experiment' /></a>";
             echo "</section>";
         } else { // NOT COMPACT
 ?>
@@ -249,6 +251,8 @@ function showXP($id, $display) {
     // view link
     echo "<a href='experiments.php?mode=view&id=".$final_query['id']."'>
         <img class='align_right' style='margin-left:5px;' src='img/arrow_right.png' alt='view' title='view experiment' /></a>";
+    echo "<a href='experiments.php?mode=edit&id=".$final_query['id']."'>
+        <img class='align_right' style='margin-left:5px;' src='img/edit.png' alt='edit' title='edit experiment' /></a>";
     // show attached if there is a file attached
     if (has_attachement($final_query['id'])) {
         echo "<img class='align_right' src='themes/".$_SESSION['prefs']['theme']."/img/attached_file.png' alt='file attached' />";
