@@ -1,4 +1,13 @@
 <?php
+function ownformatdate($date){
+	$months=array('janvier','février','mars','avril','mai',
+		'juin','juillet','août','septembre','novembre','décembre');
+	$a=substr($date,0,2);
+	$b=substr($date,2,2);
+	$c=substr($date,4,2);
+	return $c.' '.($months[(int)$b-1]).' 20'.$a;
+}
+
 function kdate(){
     // returns today's date as YYMMDD format
     $today = getdate();
@@ -232,7 +241,8 @@ function showXP($id, $display) {
         <section class="item <?php echo $final_query['status'];?>">
     <?php
     // DATE
-    echo "<span class='redo_compact'>".$final_query['date']."</span> ";
+	$formatted_date=ownformatdate($final_query['date']);
+    echo "<span class='redo_compact'>".$formatted_date."</span> ";
     // TAGS
     echo show_tags($id, 'experiments_tags');
     // view link
