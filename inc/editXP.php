@@ -97,7 +97,14 @@ $status = $data['status'];
 <option id='option_success' value="success">Success</option>
 <option id='option_redo' value="redo">Need to be redone</option>
 <option id='option_fail' value="fail">Fail</option>
-<option id='option_todo' value="todo">To do</option>
+<?php
+require_once('jj.php');
+foreach($jj_newtags as $no=>$tag){
+	$tag=$jj_newtags[$no];
+	$tagname=$jj_newtagsnames[$no];
+	echo '<option id="option_'.$tag.'" value="'.$tag.'">'.$tagname.'</option>';
+}
+?>
 </select>
 </span>
 <br />
@@ -314,7 +321,7 @@ function update_status(status) {
                 // change the color of the item border
             }).done(function() { 
                 // we first remove any status class
-                $("#view_xp_item").removeClass('running success redo fail statest todo');
+                $("#view_xp_item").removeClass('running success redo fail<?php foreach($jj_newtags as $t){echo ' '.$t;}?>');
                 // and we add our new status class
                 $("#view_xp_item").toggleClass(status);
             });
@@ -359,12 +366,10 @@ $(document).ready(function() {
     case 'redo' :
         $("#option_redo").prop('selected', true);
         break;
-    case 'todo' :
-        $("#option_todo").prop('selected', true);
-        break;
     case 'fail' :
         $("#option_fail").prop('selected', true);
         break;
+<?php foreach($jj_newtags as $t){echo "\tcase '".$t."' :\n\t\t$(\"#option_".$t."\").prop('selected', true);\n\t\tbreak;\n";} ?>
     default :
         $("#option_running").prop('selected', true);
     }

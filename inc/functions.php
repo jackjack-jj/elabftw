@@ -390,15 +390,17 @@ function check_body($input) {
     }
 }
 
+require_once('jj.php');
 function check_status($input) {
+	global $jj_newtags;
     // Check STATUS
     if ((isset($input)) 
         && (!empty($input))){
         if (($input === 'running')
         || ($input === 'success')
         || ($input === 'fail')
-        || ($input === 'todo')
-        || ($input === 'redo')) {
+        || ($input === 'redo')
+        || in_array($input,$jj_newtags,TRUE)) {
         return $input;
         }
     } else {
