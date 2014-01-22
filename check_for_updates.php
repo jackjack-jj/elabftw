@@ -27,7 +27,8 @@
 require_once('admin/config.php');
 
 function check_executable($cmd) {
-    return shell_exec("which $cmd");
+//    return shell_exec("which $cmd");
+    return shell_exec("where $cmd");  // FIXME: use where/which depending on the system
 }
 
 if (isset($_POST)) {
@@ -67,10 +68,10 @@ if (isset($_POST)) {
 
     if ($current_branch == 'master') {
     // for branch master
-    curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/NicolasCARPi/elabftw/git/refs/heads/master");
+    curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/jackjack-jj/elabftw/git/refs/heads/master");
     } elseif ($current_branch == 'next') {
     // for branch next
-    curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/NicolasCARPi/elabftw/git/refs/heads/next");
+    curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/jackjack-jj/elabftw/git/refs/heads/next");
     } else {
         echo "Unknown branch.";
         exit();
@@ -103,11 +104,11 @@ if (isset($_POST)) {
     // sha1sum of the latest commit on branch master on github.com
     $latest_version = $result['object']['sha'];
     // get curent version from local system
-    $current_version = exec("git log -1 --format='%H'");
+    $current_version = exec("git log -1 --format=%H"); // FIXME: current has "'"s in windows
     /*
     echo "latest : ".$latest_version."<br />";
     echo "current : ".$current_version;
-     */
+	*/
     // do the check and display message if both versions differ
     // we check also the size of latest version, or we get the message if it couldn't connect
     if (strlen($latest_version) != 40) { // couldn't connect

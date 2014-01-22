@@ -172,6 +172,9 @@ nav a:hover {
 .fail {
     border:2px solid red;
 }
+.todo {
+    border:2px solid #8800ff;
+}
 /* FILES */
 .filesdiv {
     border: 1px solid #CCC;

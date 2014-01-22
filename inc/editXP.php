@@ -97,6 +97,7 @@ $status = $data['status'];
 <option id='option_success' value="success">Success</option>
 <option id='option_redo' value="redo">Need to be redone</option>
 <option id='option_fail' value="fail">Fail</option>
+<option id='option_todo' value="todo">To do</option>
 </select>
 </span>
 <br />
@@ -313,7 +314,7 @@ function update_status(status) {
                 // change the color of the item border
             }).done(function() { 
                 // we first remove any status class
-                $("#view_xp_item").removeClass('running success redo fail');
+                $("#view_xp_item").removeClass('running success redo fail statest todo');
                 // and we add our new status class
                 $("#view_xp_item").toggleClass(status);
             });
@@ -357,6 +358,9 @@ $(document).ready(function() {
         break;
     case 'redo' :
         $("#option_redo").prop('selected', true);
+        break;
+    case 'todo' :
+        $("#option_todo").prop('selected', true);
         break;
     case 'fail' :
         $("#option_fail").prop('selected', true);
