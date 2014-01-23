@@ -7,5 +7,6 @@ admin/config.ini
 admin/.htpasswd
 PASTIE
 uploads/
+jj/
 jj.php
 jj.css

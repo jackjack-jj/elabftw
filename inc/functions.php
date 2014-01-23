@@ -1,4 +1,5 @@
 <?php
+include_once('jj.php');
 function ownformatdate($date){
 	$months=array('janvier','février','mars','avril','mai',
 		'juin','juillet','août','septembre','novembre','décembre');
@@ -390,7 +391,6 @@ function check_body($input) {
     }
 }
 
-require_once('jj.php');
 function check_status($input) {
 	global $jj_newtags;
     // Check STATUS

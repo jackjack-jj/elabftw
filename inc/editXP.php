@@ -27,6 +27,7 @@
 ?>
 <script src="js/tinymce/tinymce.min.js"></script>
 <?php
+include_once('jj.php');
 // ID
 if(isset($_GET['id']) && !empty($_GET['id']) && is_pos_int($_GET['id'])){
     $id = $_GET['id'];
@@ -98,7 +99,6 @@ $status = $data['status'];
 <option id='option_redo' value="redo">Need to be redone</option>
 <option id='option_fail' value="fail">Fail</option>
 <?php
-require_once('jj.php');
 foreach($jj_newtags as $no=>$tag){
 	$tag=$jj_newtags[$no];
 	$tagname=$jj_newtagsnames[$no];
@@ -401,7 +401,6 @@ $(document).ready(function() {
         editor_selector : "mceditable",
         content_css : "css/tinymce.css",
         plugins : "table textcolor searchreplace code fullscreen insertdatetime paste charmap save",
-        toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | superscript subscript | bullist numlist outdent indent | forecolor backcolor | charmap | save",
         removed_menuitems : "newdocument",
         // save button :
         save_onsavecallback: function() {
@@ -419,8 +418,28 @@ $(document).ready(function() {
             }).done(showSaved());
         },
         // keyboard shortcut to insert today's date at cursor in editor
+<?php 
+function makeEAB($name,$title,$image,$callback){
+	$r="\t\t\teditor.addButton('".$name."', {\n\t\t\t\ttitle : '".$title."',\n\t\t\t\timage : '".$image."',";
+	$r.="\n\t\t\t\tonclick : function() {\t";
+	$r.=$callback;
+	$r.="\t\t\t\t}\n\t\t\t});";
+	return $r;
+}
+$toolbar='undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | superscript subscript | bullist numlist outdent indent | forecolor backcolor | charmap';
+$listnewbuttons='';
+$editornewbuttons='';
+foreach($jj_newbuttons as $b){
+	$editornewbuttons.=makeEAB($b[0],$b[1],$b[2],$b[3]);
+	$listnewbuttons.=' '.$b[0];
+}
+if(count($jj_newbuttons)>0){$toolbar.=' |'.$listnewbuttons;}
+$toolbar.=' | save';
+?>
+        toolbar1: "<?php echo $toolbar;?>",
         setup : function(editor) {
             editor.addShortcut("ctrl+shift+d", "add date at cursor", function() { addDateOnCursor(); });
+<?php echo $editornewbuttons; ?>
         }
     });
 
