@@ -70,9 +70,12 @@ $ftw_arr[] = 'Flash The Watch';
 shuffle($ftw_arr);
 $ftw = $ftw_arr[0]; 
 
-echo "<title>".(isset($page_title)?$page_title:"Lab manager")." - eLab ".$ftw."</title>"?>
+echo "<title>".(isset($page_title)?$page_title:"Lab manager")." - eLab ".$ftw."</title>";
+function path_and_md5($cssfile){return $cssfile.(file_exists($cssfile)?'?'.md5_file($cssfile):'');}
+?>
 <!-- CSS -->
-<link rel="stylesheet" media="all" href="css/main.css" />
+<link rel="stylesheet" media="all" href="<?php echo path_and_md5('css/main.css'); ?>" />
+<link rel="stylesheet" media="all" href="<?php echo path_and_md5('jj.css'); ?>" />
 <?php
 if (isset($_SESSION['auth']) && $_SESSION['auth'] === 1){
     echo "<link id='maincss' rel='stylesheet' media='all' href='themes/".$_SESSION['prefs']['theme']."/style.css' />";
