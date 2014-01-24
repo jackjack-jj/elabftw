@@ -7,7 +7,15 @@ function ownformatdate($date){
 	$a=substr($date,0+$decdate,2);
 	$b=substr($date,2+$decdate,2);
 	$c=(int)substr($date,4+$decdate,2);
-	return $c.' '.($months[(int)$b-1]).' 20'.$a;
+	
+	$t=array(0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4);
+	$m=$b;
+	$y=2000+(int)$a-(int)($m<3);
+	$d=(int)$c;
+	$ndw=($y+(int)($y/4)-(int)($y/100)+(int)($y/400)+$t[$m-1]+$d)%7;
+	$dws=array('Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi');
+	
+	return $dws[$ndw].' '.$c.' '.($months[(int)$b-1]).' 20'.$a;
 }
 
 function kdate(){
